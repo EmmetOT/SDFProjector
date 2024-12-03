@@ -23,4 +23,6 @@ float _ColorSmoothing;
 
 float _ElapsedTime;
 
+float4 _BackgroundColour;
+
 #endif // SDF_DECALS_GLOBALS_INCLUDED

@@ -5,11 +5,11 @@
 #include "SDFDecals_Structs.hlsl"
 #include "SDFDecals_Globals.hlsl"
 
-void SDFDecals_float(float2 uv, float4 backgroundColour, out float4 outputColor) {
-    outputColor = backgroundColour;
+void SDFDecals_float(float2 uv, out float4 outputColor) {
+    outputColor = _BackgroundColour;
     float minDist = 1000000.;
 
-    if (_CircleCount == 0 && _LineCount == 0) {
+    if (_CircleCount == 0 && _LineCount == 0 && _BoxCount == 0) {
         return;
     }
 
@@ -65,13 +65,13 @@ void SDFDecals_float(float2 uv, float4 backgroundColour, out float4 outputColor)
 
     float distanceChange = fwidth(minDist) * 0.5;
     float antialiasedCutoff = smoothstep(distanceChange, -distanceChange, minDist);
-
+    
     // Prevents visual artifacts when at edges.
     if (antialiasedCutoff < 0.5) {
-        outputColor = backgroundColour;
+        outputColor = _BackgroundColour;
     }
-
-    outputColor = lerp(backgroundColour, outputColor, antialiasedCutoff);
+    
+    outputColor = lerp(_BackgroundColour, outputColor, antialiasedCutoff);
 }
 
 #endif // SDF_DECALS_INCLUDED

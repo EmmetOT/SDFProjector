@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -80,6 +81,16 @@ namespace Seed.DecalProjector {
             } else if (stateChange == PlayModeStateChange.EnteredEditMode) {
                 ForceSetupAll();
             }
+        }
+
+        private void OnDrawGizmosSelected() {
+            GetCorners(out var bottomLeft, out var topRight);
+            
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(bottomLeft, 0.5f);
+            
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(topRight, 0.5f);
         }
 #endif
 
