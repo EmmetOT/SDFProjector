@@ -17,11 +17,16 @@ namespace Seed.DecalProjector {
         private void OnDisable() {
             if (Canvas != null && sdfBox != null) {
                 Canvas.RemoveBox(sdfBox);
+                sdfBox = null;
             }
         }
 
         protected override void OnSetup() {
-            if (sdfBox == null) {
+            if (Canvas == null) {
+                return;
+            }
+            
+            if (sdfBox == null || !Canvas.HasBox(sdfBox)) {
                 sdfBox = Canvas.CreateBox(Position2D, rotation, size, roundedness, SDFColourProfile);
             } else {
                 sdfBox.Position = Position2D;
@@ -38,6 +43,11 @@ namespace Seed.DecalProjector {
             } else {
                 sdfBox.Position = Position2D;
             }
+        }
+
+        public void SetSize(Vector2 size) {
+            this.size = size;
+            Setup();
         }
     }
 }

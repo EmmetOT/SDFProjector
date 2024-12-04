@@ -24,18 +24,31 @@ namespace Seed.DecalProjector {
         public int LineCount => lineData.Count;
         
         private float smoothing = 0.01f;
-        private float colorSmoothing = 0.01f;
+        public float Smoothing => smoothing;
+        
+        private float colourSmoothing = 0.01f;
+        public float ColourSmoothing => colourSmoothing;
+        
         private Color backgroundColour = Color.black;
+        public Color BackgroundColour => backgroundColour;
 
         public void Update() {
             Shader.SetGlobalFloat(SDFShaderGlobals.ElapsedTime, Time.time);
         }
 
+        public SDFCanvas() {
+            Dispose();
+            
+            UpdateBuffer(circleBuffer, tempCircles, SDFShaderGlobals.CircleBuffer, SDFShaderGlobals.CircleCount);
+            UpdateBuffer(boxBuffer, tempBoxes, SDFShaderGlobals.BoxBuffer, SDFShaderGlobals.BoxCount);
+            UpdateBuffer(lineBuffer, tempLines, SDFShaderGlobals.LineBuffer, SDFShaderGlobals.LineCount);
+            UpdateBuffer(linePointBuffer, linePoints, SDFShaderGlobals.LinePointBuffer, SDFShaderGlobals.LinePointCount);
+        }
+        
         public void Dispose() {
-            circleBuffer?.Dispose();
-            lineBuffer?.Dispose();
-            linePointBuffer?.Dispose();
-            boxBuffer?.Dispose();
+            ClearCircles();
+            ClearBoxes();
+            ClearLines();
         }
         
         public void SetBackgroundColour(Color colour) {
@@ -48,9 +61,9 @@ namespace Seed.DecalProjector {
             Shader.SetGlobalFloat(SDFShaderGlobals.Smoothing, smoothing);
         }
         
-        public void SetColorSmoothing(float value) {
-            colorSmoothing = value;
-            Shader.SetGlobalFloat(SDFShaderGlobals.ColorSmoothing, colorSmoothing);
+        public void SetColourSmoothing(float value) {
+            colourSmoothing = value;
+            Shader.SetGlobalFloat(SDFShaderGlobals.ColorSmoothing, colourSmoothing);
         }
         
         public void SetCorners(Vector3 bottomLeft, Vector3 topRight) {
@@ -58,6 +71,10 @@ namespace Seed.DecalProjector {
             topRight = new Vector2(topRight.x, topRight.z);
             Shader.SetGlobalVector(SDFShaderGlobals.BottomLeft, bottomLeft);
             Shader.SetGlobalVector(SDFShaderGlobals.TopRight, topRight);
+        }
+        
+        public bool HasCircle(SDFCircle circle) {
+            return circleData.ContainsKey(circle);
         }
         
         public SDFCircle CreateCircle(Vector2 position, float radius, SDFColourProfile sdfColourProfile) {
@@ -80,6 +97,10 @@ namespace Seed.DecalProjector {
             UpdateBuffer(circleBuffer, tempCircles, SDFShaderGlobals.CircleBuffer, SDFShaderGlobals.CircleCount);
         }
         
+        public bool HasBox(SDFBox box) {
+            return boxData.ContainsKey(box);
+        }
+
         public SDFBox CreateBox(Vector2 position, float rotation, Vector2 size, Vector4 roundedness, SDFColourProfile sdfColourProfile) {
             var box = new SDFBox(position, rotation, size, roundedness, sdfColourProfile);
             box.OnChange += OnBoxChanged;
@@ -100,6 +121,10 @@ namespace Seed.DecalProjector {
             UpdateBuffer(boxBuffer, tempBoxes, SDFShaderGlobals.BoxBuffer, SDFShaderGlobals.BoxCount);
         }
         
+        public bool HasLine(SDFLine line) {
+            return lineData.ContainsKey(line);
+        }
+
         public SDFLine CreateLine(float width, bool isLoop, bool alignColourWithLine, SDFColourProfile sdfColourProfile, params Vector2[] points) {
             var line = new SDFLine(width, isLoop, alignColourWithLine, sdfColourProfile, points);
             line.SetIndices(linePoints.Count, linePoints.Count + points.Length - 1);
@@ -197,15 +222,18 @@ namespace Seed.DecalProjector {
             UpdateBuffer(circleBuffer, tempCircles, SDFShaderGlobals.CircleBuffer, SDFShaderGlobals.CircleCount);
         }
 
-        private CircleGPUData CreateCircleGPUData(SDFCircle circle) {
+        private static CircleGPUData CreateCircleGPUData(SDFCircle circle) {
             return new CircleGPUData {
                 Position = circle.Position,
                 Radius = circle.Radius,
                 MainColour = circle.SDFColourProfile.MainColour.ToVector3(),
                 SecondaryColour = circle.SDFColourProfile.SecondaryColour.ToVector3(),
+                OutlineColour = circle.SDFColourProfile.OutlineColour.ToVector3(),
+                OutlineWidth = circle.SDFColourProfile.OutlineWidth,
                 AlternateColourFrequency = circle.SDFColourProfile.AlternateColourFrequency,
                 AlternateColourSpeed = circle.SDFColourProfile.AlternateColourSpeed,
-                AlternateColourAngle = circle.SDFColourProfile.AlternateColourAngle
+                CosTheta = Mathf.Cos(Mathf.Deg2Rad * circle.SDFColourProfile.AlternateColourAngle),
+                SinTheta = Mathf.Sin(Mathf.Deg2Rad * circle.SDFColourProfile.AlternateColourAngle),
             };
         }
         
@@ -229,7 +257,7 @@ namespace Seed.DecalProjector {
             UpdateBuffer(boxBuffer, tempBoxes, SDFShaderGlobals.BoxBuffer, SDFShaderGlobals.BoxCount);
         }
         
-        private BoxGPUData CreateBoxGPUData(SDFBox box) {
+        private static BoxGPUData CreateBoxGPUData(SDFBox box) {
             return new BoxGPUData {
                 Position = box.Position,
                 Rotation = box.Rotation,
@@ -237,13 +265,14 @@ namespace Seed.DecalProjector {
                 Roundedness = box.Roundedness,
                 MainColour = box.SDFColourProfile.MainColour.ToVector3(),
                 SecondaryColour = box.SDFColourProfile.SecondaryColour.ToVector3(),
+                OutlineColour = box.SDFColourProfile.OutlineColour.ToVector3(),
+                OutlineWidth = box.SDFColourProfile.OutlineWidth,
                 AlternateColourFrequency = box.SDFColourProfile.AlternateColourFrequency,
                 AlternateColourSpeed = box.SDFColourProfile.AlternateColourSpeed,
-                AlternateColourAngle = box.SDFColourProfile.AlternateColourAngle
+                CosTheta = Mathf.Cos(Mathf.Deg2Rad * box.SDFColourProfile.AlternateColourAngle),
+                SinTheta = Mathf.Sin(Mathf.Deg2Rad * box.SDFColourProfile.AlternateColourAngle),
             };
         }
-        
-
         
         private void OnLineChanged(SDFLine line) {
             lineData[line] = CreateLineGPUData(line);
@@ -306,7 +335,7 @@ namespace Seed.DecalProjector {
             UpdateBuffer(linePointBuffer, linePoints, SDFShaderGlobals.LinePointBuffer, SDFShaderGlobals.LinePointCount);
         }
         
-        private LineGPUData CreateLineGPUData(SDFLine line) {
+        private static LineGPUData CreateLineGPUData(SDFLine line) {
             return new LineGPUData() {
                 PointIndexStart = (uint)line.StartIndex,
                 PointIndexEnd = (uint)line.EndIndex,
@@ -314,22 +343,25 @@ namespace Seed.DecalProjector {
                 TotalLength = line.TotalLength,
                 MainColour = line.SDFColourProfile.MainColour.ToVector3(),
                 SecondaryColour = line.SDFColourProfile.SecondaryColour.ToVector3(),
+                OutlineColour = line.SDFColourProfile.OutlineColour.ToVector3(),
+                OutlineWidth = line.SDFColourProfile.OutlineWidth,
                 AlternateColourFrequency = line.SDFColourProfile.AlternateColourFrequency,
                 AlternateColourSpeed = line.SDFColourProfile.AlternateColourSpeed,
-                AlternateColourAngle = line.SDFColourProfile.AlternateColourAngle,
+                CosTheta = Mathf.Cos(Mathf.Deg2Rad * line.SDFColourProfile.AlternateColourAngle),
+                SinTheta = Mathf.Sin(Mathf.Deg2Rad * line.SDFColourProfile.AlternateColourAngle),
                 AlignColourWithLine = line.AlignColourWithLine ? 1 : 0,
                 Loop = line.IsLoop ? 1 : 0
             };
         }
         
-        private void UpdateBuffer<T>(ComputeBuffer buffer, List<T> data, int bufferName, int countName) where T : struct {
+        private static void UpdateBuffer<T>(ComputeBuffer buffer, List<T> data, int bufferName, int countName) where T : struct {
             if (buffer == null || !buffer.IsValid() || data.Count != buffer.count) {
                 buffer?.Dispose();
                 buffer = new ComputeBuffer(Mathf.Max(1, data.Count), Marshal.SizeOf(typeof(T)));
-                Shader.SetGlobalInt(countName, data.Count);
             }
 
             buffer.SetData(data);
+            Shader.SetGlobalInt(countName, data.Count);
             Shader.SetGlobalBuffer(bufferName, buffer);
         }
     }

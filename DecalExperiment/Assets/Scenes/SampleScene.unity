@@ -122,7 +122,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &115208284
+--- !u!1 &149631546
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,190 +130,51 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 115208285}
-  - component: {fileID: 115208286}
+  - component: {fileID: 149631548}
+  - component: {fileID: 149631547}
   m_Layer: 0
-  m_Name: RedCircle (1)
+  m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &115208285
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 115208284}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.2, y: 0, z: 13.08}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2105694371}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &115208286
+--- !u!114 &149631547
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 115208284}
+  m_GameObject: {fileID: 149631546}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 104a6a743f4743a4a73a578bdf8ffedb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sdfCanvasController: {fileID: 2105694372}
   sdfColourProfile:
-    MainColour: {r: 1, g: 0, b: 0, a: 0}
-    SecondaryColour: {r: 0, g: 0, b: 0, a: 0}
+    MainColour: {r: 1, g: 0, b: 0, a: 1}
+    SecondaryColour: {r: 1, g: 1, b: 1, a: 0}
+    OutlineColour: {r: 0.9009557, g: 0, b: 1, a: 0}
+    OutlineWidth: 0
     AlternateColourFrequency: 0
     AlternateColourSpeed: 0
-    AlternateColourAngle: 0
-  radius: 7.75
---- !u!1 &294535870
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 294535871}
-  - component: {fileID: 294535872}
-  m_Layer: 0
-  m_Name: RedCircle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &294535871
+    AlternateColourAngle: 45
+  radius: 44.3
+--- !u!4 &149631548
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 294535870}
+  m_GameObject: {fileID: 149631546}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 49, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2105694371}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &294535872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 294535870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 104a6a743f4743a4a73a578bdf8ffedb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sdfCanvasController: {fileID: 2105694372}
-  sdfColourProfile:
-    MainColour: {r: 1, g: 0, b: 0, a: 0}
-    SecondaryColour: {r: 0, g: 0, b: 0, a: 0}
-    AlternateColourFrequency: 0
-    AlternateColourSpeed: 0
-    AlternateColourAngle: 0
-  radius: 7.75
---- !u!1 &299158847
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 299158848}
-  - component: {fileID: 299158849}
-  m_Layer: 0
-  m_Name: Line
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &299158848
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299158847}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.6, y: 0, z: -35.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2105694371}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &299158849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299158847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7750c520fb464574b32ccb870eb65b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sdfCanvasController: {fileID: 2105694372}
-  sdfColourProfile:
-    MainColour: {r: 1, g: 1, b: 1, a: 1}
-    SecondaryColour: {r: 0, g: 0, b: 0, a: 0}
-    AlternateColourFrequency: 1.21
-    AlternateColourSpeed: 2.41
-    AlternateColourAngle: 0
-  width: 0.52
-  isLoop: 0
-  alignColourWithLine: 1
-  points:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 20}
-  - {x: 0, y: 0, z: 40}
-  - {x: 0, y: 0, z: 60}
-  - {x: 0, y: 0, z: 80}
-  - {x: 5, y: 0, z: 85}
-  - {x: 25, y: 0, z: 85}
-  - {x: 45, y: 0, z: 85}
-  - {x: 65, y: 0, z: 85}
-  - {x: 70, y: 0, z: 80}
-  - {x: 70, y: 0, z: 60}
-  - {x: 70, y: 0, z: 40}
-  - {x: 70, y: 0, z: 20}
-  - {x: 70, y: 0, z: 0}
-  - {x: 65, y: 0, z: -5}
-  - {x: 45, y: 0, z: -5}
-  tranformedPoints:
-  - {x: -30.6, y: -35.1}
-  - {x: -30.6, y: -15.099998}
-  - {x: -30.6, y: 4.9000015}
-  - {x: -30.6, y: 24.900002}
-  - {x: -30.6, y: 44.9}
-  - {x: -25.6, y: 49.9}
-  - {x: -5.6000004, y: 49.9}
-  - {x: 14.4, y: 49.9}
-  - {x: 34.4, y: 49.9}
-  - {x: 39.4, y: 44.9}
-  - {x: 39.4, y: 24.900002}
-  - {x: 39.4, y: 4.9000015}
-  - {x: 39.4, y: -15.099998}
-  - {x: 39.4, y: -35.1}
-  - {x: 34.4, y: -40.1}
-  - {x: 14.4, y: -40.1}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,60 +430,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
---- !u!1 &495889444
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 495889445}
-  - component: {fileID: 495889446}
-  m_Layer: 0
-  m_Name: BlackAndYellowBox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &495889445
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495889444}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.05, y: 0, z: -19.37}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2105694371}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &495889446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495889444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3c9916f29844e5b9c719c4206986b56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sdfCanvasController: {fileID: 2105694372}
-  sdfColourProfile:
-    MainColour: {r: 0, g: 0, b: 0, a: 1}
-    SecondaryColour: {r: 1, g: 0.84019786, b: 0, a: 1}
-    AlternateColourFrequency: 9.53
-    AlternateColourSpeed: 2.64
-    AlternateColourAngle: -21.3
-  size: {x: 4, y: 4}
-  rotation: 26.75
-  roundedness: {x: 2, y: 2, z: 2, w: 2}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,7 +584,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1451388252
+--- !u!1 &1301272922
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -785,102 +592,53 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1451388253}
-  - component: {fileID: 1451388254}
+  - component: {fileID: 1301272924}
+  - component: {fileID: 1301272923}
   m_Layer: 0
-  m_Name: RedCircle (2)
+  m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1451388253
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1451388252}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 0, z: 30.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2105694371}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1451388254
+--- !u!114 &1301272923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1451388252}
+  m_GameObject: {fileID: 1301272922}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 104a6a743f4743a4a73a578bdf8ffedb, type: 3}
+  m_Script: {fileID: 11500000, guid: c3c9916f29844e5b9c719c4206986b56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sdfCanvasController: {fileID: 2105694372}
   sdfColourProfile:
-    MainColour: {r: 1, g: 0, b: 0, a: 0}
-    SecondaryColour: {r: 0, g: 0, b: 0, a: 0}
+    MainColour: {r: 1, g: 0, b: 0, a: 1}
+    SecondaryColour: {r: 1, g: 1, b: 1, a: 0}
+    OutlineColour: {r: 0.9019608, g: 0, b: 1, a: 0}
+    OutlineWidth: 0
     AlternateColourFrequency: 0
     AlternateColourSpeed: 0
-    AlternateColourAngle: 0
-  radius: 7.75
---- !u!1 &1482526740
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1482526741}
-  - component: {fileID: 1482526742}
-  m_Layer: 0
-  m_Name: StripedCircle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1482526741
+    AlternateColourAngle: 45
+  size: {x: 10, y: 10}
+  rotation: 0
+  roundedness: {x: 0, y: 0, z: 0, w: 0}
+--- !u!4 &1301272924
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1482526740}
+  m_GameObject: {fileID: 1301272922}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.4, y: 0, z: 7.7}
+  m_LocalPosition: {x: -24.7, y: 0, z: -5.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2105694371}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1482526742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1482526740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 104a6a743f4743a4a73a578bdf8ffedb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sdfCanvasController: {fileID: 2105694372}
-  sdfColourProfile:
-    MainColour: {r: 1, g: 0, b: 0, a: 0}
-    SecondaryColour: {r: 0, g: 0.11642957, b: 1, a: 0}
-    AlternateColourFrequency: -0.83
-    AlternateColourSpeed: 24.7
-    AlternateColourAngle: -203.2
-  radius: 10.31
 --- !u!1 &1617209303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,60 +801,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1971019818
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1971019819}
-  - component: {fileID: 1971019820}
-  m_Layer: 0
-  m_Name: BlackAndYellowBox (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1971019819
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1971019818}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.1, y: 0, z: -9.9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2105694371}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1971019820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1971019818}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3c9916f29844e5b9c719c4206986b56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sdfCanvasController: {fileID: 2105694372}
-  sdfColourProfile:
-    MainColour: {r: 0, g: 0, b: 0, a: 1}
-    SecondaryColour: {r: 1, g: 0.84019786, b: 0, a: 1}
-    AlternateColourFrequency: 9.53
-    AlternateColourSpeed: 2.64
-    AlternateColourAngle: -21.3
-  size: {x: 8.64, y: 10.22}
-  rotation: 0
-  roundedness: {x: 2, y: 2, z: 2, w: 2}
 --- !u!1 &2105694370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,13 +832,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1617209305}
-  - {fileID: 294535871}
-  - {fileID: 115208285}
-  - {fileID: 1451388253}
-  - {fileID: 1482526741}
-  - {fileID: 495889445}
-  - {fileID: 1971019819}
-  - {fileID: 299158848}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2105694372
@@ -1149,10 +846,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1389493c09c545f4bb6a11317322a775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  margin: 10
   decalProjector: {fileID: 1617209304}
   backgroundColour: {r: 0, g: 0, b: 0, a: 1}
-  smoothing: 0.01
-  colorSmoothing: 0.01
+  smoothing: 0
+  colorSmoothing: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1163,3 +861,5 @@ SceneRoots:
   - {fileID: 1623534618}
   - {fileID: 2105694371}
   - {fileID: 1091725965}
+  - {fileID: 149631548}
+  - {fileID: 1301272924}

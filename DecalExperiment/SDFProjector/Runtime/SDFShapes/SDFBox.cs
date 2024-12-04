@@ -75,8 +75,11 @@ namespace Seed.DecalProjector {
         public Vector4 Roundedness;
         public Vector3 MainColour;
         public Vector3 SecondaryColour;
+        public Vector3 OutlineColour;
+        public float OutlineWidth;
         public float AlternateColourFrequency;
         public float AlternateColourSpeed;
-        public float AlternateColourAngle;
+        public float CosTheta;
+        public float SinTheta;
     }
 }

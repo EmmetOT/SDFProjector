@@ -5,23 +5,13 @@ using UnityEngine.Serialization;
 namespace Seed.DecalProjector {
     [ExecuteInEditMode]
     public abstract class SDFShapeController : MonoBehaviour {
-        [FormerlySerializedAs("canvasController")]
-        [SerializeField]
-        [HideInInspector]
-        private SDFCanvasController sdfCanvasController;
-
         [SerializeField]
         private SDFColourProfile sdfColourProfile = new() { MainColour = Color.white };
         protected SDFColourProfile SDFColourProfile => sdfColourProfile;
         
         public Vector2 Position2D => new(transform.position.x, transform.position.z);
 
-        protected SDFCanvas Canvas {
-            get {
-                sdfCanvasController ??= GetComponentInParent<SDFCanvasController>();
-                return sdfCanvasController.Canvas;
-            }
-        }
+        protected SDFCanvas Canvas => SDFCanvasController.Instance?.Canvas;
         
         private void Reset() => Setup();
 
@@ -29,7 +19,6 @@ namespace Seed.DecalProjector {
         private void OnEnable() => Setup();
 
         public void Setup() {
-            sdfCanvasController ??= GetComponentInParent<SDFCanvasController>();
             OnSetup();
         }
 
@@ -42,5 +31,12 @@ namespace Seed.DecalProjector {
                 OnMoved();
             }
         }
+        
+        
+        public void SetColour(Color colour) {
+            sdfColourProfile.MainColour = colour;
+            Setup();
+        }
+
     }
 }

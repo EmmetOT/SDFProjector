@@ -8,14 +8,24 @@ namespace Seed.DecalProjector {
         
         private SDFCircle sdfCircle;
 
+        public void SetRadius(float newRadius) {
+            radius = newRadius;
+            Setup();
+        }
+        
         private void OnDisable() {
             if (Canvas != null && sdfCircle != null) {
                 Canvas.RemoveCircle(sdfCircle);
+                sdfCircle = null;
             }
         }
         
         protected override void OnSetup() {
-            if (sdfCircle == null) {
+            if (Canvas == null) {
+                return;
+            }
+            
+            if (sdfCircle == null || !Canvas.HasCircle(sdfCircle)) {
                 sdfCircle = Canvas.CreateCircle(Position2D, radius, SDFColourProfile);
             } else {
                 sdfCircle.Position = Position2D;

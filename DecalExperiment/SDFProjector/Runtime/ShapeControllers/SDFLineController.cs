@@ -26,13 +26,18 @@ namespace Seed.DecalProjector {
         private void OnDisable() {
             if (Canvas != null && sdfLine != null) {
                 Canvas.RemoveLine(sdfLine);
+                sdfLine = null;
             }
         }
 
         protected override void OnSetup() {
             TransformPoints();
             
-            if (sdfLine == null) {
+            if (Canvas == null) {
+                return;
+            }
+            
+            if (sdfLine == null || !Canvas.HasLine(sdfLine)) {
                 sdfLine = Canvas.CreateLine(width, isLoop, alignColourWithLine, SDFColourProfile, tranformedPoints);
             } else {
                 sdfLine.Width = width;

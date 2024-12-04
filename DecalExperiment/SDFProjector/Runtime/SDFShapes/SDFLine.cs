@@ -139,9 +139,12 @@ namespace Seed.DecalProjector {
         public float TotalLength;
         public Vector3 MainColour;
         public Vector3 SecondaryColour;
+        public Vector3 OutlineColour;
+        public float OutlineWidth;
         public float AlternateColourFrequency;
         public float AlternateColourSpeed;
-        public float AlternateColourAngle;
+        public float CosTheta;
+        public float SinTheta;
         public int AlignColourWithLine;
         public int Loop;
     }

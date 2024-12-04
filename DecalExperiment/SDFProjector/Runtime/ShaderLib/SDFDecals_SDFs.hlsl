@@ -11,6 +11,12 @@ float SDF_Circle(float2 p, CircleData data) {
     return length(difference) - data.Radius;
 }
 
+float SDF_Circle(float2 p, float2 circlePos, float radius) {
+    // adding a tiny number prevents NaN
+    float2 difference = (circlePos - p) + EPSILON;
+    return length(difference) - radius;
+}
+
 float SDF_LineSegment(float2 p, float2 a, float2 b, float width) {
     // https://iquilezles.org/www/articles/distgradfunctions2d/distgradfunctions2d.htm
     float2 pa = p - a, ba = b - a;
@@ -63,40 +69,62 @@ float SDF_SmoothMin(float d1, float d2, float4 v1, float4 v2, out float4 vResult
 
 float4 SDF_Colour(float2 p, float3 mainColour, float3 secondaryColour, 
                   float alternateColourFrequency, float alternateColourSpeed, 
-                  float alternateColourAngle) {
-    alternateColourAngle *= DEG_TO_RAD;
-    
-    // Rotate the point by the alternateColourAngle
-    float2x2 rotationMatrix = float2x2(cos(alternateColourAngle), -sin(alternateColourAngle),
-                                       sin(alternateColourAngle), cos(alternateColourAngle));
-    float2 rotatedP = mul(rotationMatrix, p);
-
-    // Compute the sine wave pattern with time-based movement
+                  float cosTheta, float sinTheta) {
+    float2 rotatedP = float2(p.x * cosTheta - p.y * sinTheta, p.x * sinTheta + p.y * cosTheta);
     float wave = sin(rotatedP.x * alternateColourFrequency + _ElapsedTime * alternateColourSpeed);
-
-    // Use smoothstep and fwidth for smooth transitions
-    float edgeWidth = fwidth(wave);
-    float smoothedWave = smoothstep(-edgeWidth, edgeWidth, wave);
-
-    // Interpolate between the main and secondary colours based on the smoothed wave
-    return float4(lerp(mainColour, secondaryColour, smoothedWave), 1.0);
+    return float4(lerp(secondaryColour, mainColour, step(0.0, wave)), 1.0);
 }
 
 float4 SDF_Colour_Circle(float2 p, CircleData data) {
-    return SDF_Colour(p, data.MainColour, data.SecondaryColour, 
-                      data.AlternateColourFrequency, data.AlternateColourSpeed, 
-                      data.AlternateColourAngle);
+    float dist = SDF_Circle(p, data);
+    
+    float4 mainCol = SDF_Colour(
+        p, 
+        data.MainColour, 
+        data.SecondaryColour, 
+        data.AlternateColourFrequency, 
+        data.AlternateColourSpeed, 
+        data.CosTheta, 
+        data.SinTheta
+    );
+    
+    float innerDist = abs(dist);
+    float outlineFactor = step(innerDist, data.OutlineWidth);
+    float4 finalCol = lerp(mainCol, float4(data.OutlineColour, 1.0), outlineFactor);
+    return lerp(finalCol, float4(data.OutlineColour, 1.0), step(0.0, dist));
+}
+
+float4 SDF_Colour_Box(float2 p, BoxData data) {
+    float dist = SDF_Box(p, data);
+    
+    float4 mainCol = SDF_Colour(
+        p, 
+        data.MainColour, 
+        data.SecondaryColour, 
+        data.AlternateColourFrequency, 
+        data.AlternateColourSpeed, 
+        data.CosTheta, 
+        data.SinTheta
+    );
+    
+    float innerDist = abs(dist);
+    float outlineFactor = step(innerDist, data.OutlineWidth);
+    float4 finalCol = lerp(mainCol, float4(data.OutlineColour, 1.0), outlineFactor);
+    return lerp(finalCol, float4(data.OutlineColour, 1.0), step(0.0, dist));
 }
 
 float4 SDF_Colour_Line(float2 p, LineData data) {
+    float4 mainCol;
+    float minDist = 1000000.;
     if (data.AlignColourWithLine <= 0) {
-        return SDF_Colour(p, data.MainColour, data.SecondaryColour, 
+        minDist = SDF_Line(p, data);
+        mainCol = SDF_Colour(p, data.MainColour, data.SecondaryColour, 
                           data.AlternateColourFrequency, data.AlternateColourSpeed, 
-                          data.AlternateColourAngle);
+                          data.CosTheta, data.SinTheta);
     } else {
         uint startIndex = data.PointIndexStart;
         uint endIndex = data.PointIndexEnd;
-        float minDist = 1000000.;
+
         int closestSegmentStart = -1;
         int closestSegmentEnd = -1;
 
@@ -150,16 +178,15 @@ float4 SDF_Colour_Line(float2 p, LineData data) {
         float T_width = saturate(0.5 + distToLine / data.Width); // Map to [0, 1]
         float2 uv = float2(T_length, T_width);
 
-        return SDF_Colour(uv, data.MainColour, data.SecondaryColour, 
+        mainCol = SDF_Colour(uv, data.MainColour, data.SecondaryColour, 
                   data.AlternateColourFrequency, data.AlternateColourSpeed, 
-                  data.AlternateColourAngle);
+                  data.CosTheta, data.SinTheta);
     }
-}
 
-float4 SDF_Colour_Box(float2 p, BoxData data) {
-    return SDF_Colour(p, data.MainColour, data.SecondaryColour, 
-                      data.AlternateColourFrequency, data.AlternateColourSpeed, 
-                      data.AlternateColourAngle);
+    float innerDist = abs(minDist);
+    float outlineFactor = step(innerDist, data.OutlineWidth);
+    float4 finalCol = lerp(mainCol, float4(data.OutlineColour, 1.0), outlineFactor);
+    return lerp(finalCol, float4(data.OutlineColour, 1.0), step(0.0, minDist));
 }
 
 #endif // SDF_DECALS_SDFS_INCLUDED

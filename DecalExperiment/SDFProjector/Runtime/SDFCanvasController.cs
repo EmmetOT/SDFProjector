@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -18,6 +17,21 @@ namespace Seed.DecalProjector {
                 return canvas;
             }
         }
+        
+        private static SDFCanvasController instance;
+        public static SDFCanvasController Instance {
+            get {
+                if (instance == null) {
+                    instance = FindObjectOfType<SDFCanvasController>();
+                }
+
+                return instance;
+            }
+        }
+
+        [SerializeField]
+        [Min(0f)]
+        private float margin = 10f;
         
         [SerializeField]
         private UnityEngine.Rendering.Universal.DecalProjector decalProjector;
@@ -39,9 +53,8 @@ namespace Seed.DecalProjector {
         private void Reset() => Setup();
 
         private void OnValidate() => Setup();
-        private void OnEnable() => Setup();
 
-        private void Update() {
+        private void LateUpdate() {
             if (decalProjector != null) {
                 GetCorners(out var bottomLeft, out var topRight);
                 
@@ -56,22 +69,36 @@ namespace Seed.DecalProjector {
             canvas.Update();
         }
         
+        private void OnEnable() => Setup();
+
         private void OnDisable() {
             canvas?.Dispose();
             canvas = null;
         }
         
+        public void SetProjectorSize(Vector2 size, float depth) {
+            decalProjector.size = new(size.x, size.y, depth);
+        }
+
+        public void SetRenderingLayer(uint renderingLayerMask) {
+            decalProjector.renderingLayerMask = renderingLayerMask;
+        }
+        
         private void Setup() {
+            if (!enabled) {
+                return;
+            }
+            
 #if UNITY_EDITOR
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
 #endif
             
             canvas ??= new SDFCanvas();
-        
+            
             canvas.SetBackgroundColour(backgroundColour);
             canvas.SetSmoothing(smoothing);
-            canvas.SetColorSmoothing(colorSmoothing);
+            canvas.SetColourSmoothing(colorSmoothing);
         }
 
 #if UNITY_EDITOR
@@ -82,15 +109,14 @@ namespace Seed.DecalProjector {
                 ForceSetupAll();
             }
         }
-
-        private void OnDrawGizmosSelected() {
-            GetCorners(out var bottomLeft, out var topRight);
-            
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(bottomLeft, 0.5f);
-            
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(topRight, 0.5f);
+        
+        [UnityEditor.Callbacks.DidReloadScripts]
+        private static void OnScriptsReloaded() {
+            var controllers = FindObjectsOfType<SDFCanvasController>();
+            foreach (var controller in controllers) {
+                controller.Setup();
+                controller.ForceSetupAll();
+            }
         }
 #endif
 
@@ -103,7 +129,7 @@ namespace Seed.DecalProjector {
         }
         
         [ContextMenu("Clear All")]
-        private void ClearAll() {
+        public void ClearAll() {
             canvas?.ClearCircles();
             canvas?.ClearLines();
             canvas?.ClearBoxes();
@@ -115,7 +141,7 @@ namespace Seed.DecalProjector {
                 return;
             }
             
-            var controllers = GetComponentsInChildren<SDFShapeController>();
+            var controllers = FindObjectsOfType<SDFShapeController>();
             foreach (var controller in controllers) {
                 if (controller) {
                     controller.Setup();
