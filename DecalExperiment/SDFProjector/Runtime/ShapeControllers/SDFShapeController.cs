@@ -6,6 +6,9 @@ namespace Seed.DecalProjector {
     [ExecuteInEditMode]
     public abstract class SDFShapeController : MonoBehaviour {
         [SerializeField]
+        protected bool skip = false;
+        
+        [SerializeField]
         private SDFColourProfile sdfColourProfile = new() { MainColour = Color.white };
         protected SDFColourProfile SDFColourProfile => sdfColourProfile;
         

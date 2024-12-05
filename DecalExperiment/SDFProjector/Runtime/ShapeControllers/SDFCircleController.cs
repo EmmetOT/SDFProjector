@@ -31,6 +31,7 @@ namespace Seed.DecalProjector {
                 sdfCircle.Position = Position2D;
                 sdfCircle.Radius = radius;
                 sdfCircle.SDFColourProfile = SDFColourProfile;
+                sdfCircle.Skip = skip;
             }
         }
 

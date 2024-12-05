@@ -12,6 +12,15 @@ namespace Seed.DecalProjector {
         public event Action<SDFLine, SDFLinePoint, int> OnPointChanged;
         public event Action<SDFLine> OnPointsChanged;
         
+        private bool skip;
+        public bool Skip {
+            get => skip;
+            set {
+                skip = value;
+                OnChange?.Invoke(this);
+            }
+        }
+
         private float width;
         public float Width {
             get => width;
@@ -147,6 +156,7 @@ namespace Seed.DecalProjector {
         public float SinTheta;
         public int AlignColourWithLine;
         public int Loop;
+        public int Skip;
     }
 
     [StructLayout(LayoutKind.Sequential)]

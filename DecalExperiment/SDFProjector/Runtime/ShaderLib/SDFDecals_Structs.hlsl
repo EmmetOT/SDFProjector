@@ -14,6 +14,7 @@ struct CircleData {
     float AlternateColourSpeed;
     float CosTheta;
     float SinTheta;
+    int Skip;
 };
 
 struct LineData {
@@ -31,6 +32,7 @@ struct LineData {
     float SinTheta;
     int AlignColourWithLine;
     int Loop;
+    int Skip;
 };
 
 struct LinePoint {
@@ -51,6 +53,7 @@ struct BoxData {
     float AlternateColourSpeed;
     float CosTheta;
     float SinTheta;
+    int Skip;
 };
 
 #endif // SDF_DECALS_STRUCTS_INCLUDED

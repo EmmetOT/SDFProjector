@@ -8,6 +8,15 @@ namespace Seed.DecalProjector {
         public event Action<SDFBox> OnChange;
         public event Action<SDFBox> OnRelease;
         
+        private bool skip;
+        public bool Skip {
+            get => skip;
+            set {
+                skip = value;
+                OnChange?.Invoke(this);
+            }
+        }
+
         private Vector2 position;
         public Vector2 Position {
             get => position;
@@ -81,5 +90,6 @@ namespace Seed.DecalProjector {
         public float AlternateColourSpeed;
         public float CosTheta;
         public float SinTheta;
+        public int Skip;
     }
 }

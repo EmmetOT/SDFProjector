@@ -34,6 +34,7 @@ namespace Seed.DecalProjector {
                 sdfBox.Rotation = rotation;
                 sdfBox.Roundedness = roundedness;
                 sdfBox.SDFColourProfile = SDFColourProfile;
+                sdfBox.Skip = skip;
             }
         }
 

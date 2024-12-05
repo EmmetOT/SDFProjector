@@ -234,6 +234,7 @@ namespace Seed.DecalProjector {
                 AlternateColourSpeed = circle.SDFColourProfile.AlternateColourSpeed,
                 CosTheta = Mathf.Cos(Mathf.Deg2Rad * circle.SDFColourProfile.AlternateColourAngle),
                 SinTheta = Mathf.Sin(Mathf.Deg2Rad * circle.SDFColourProfile.AlternateColourAngle),
+                Skip = circle.Skip ? 1 : 0
             };
         }
         
@@ -271,6 +272,7 @@ namespace Seed.DecalProjector {
                 AlternateColourSpeed = box.SDFColourProfile.AlternateColourSpeed,
                 CosTheta = Mathf.Cos(Mathf.Deg2Rad * box.SDFColourProfile.AlternateColourAngle),
                 SinTheta = Mathf.Sin(Mathf.Deg2Rad * box.SDFColourProfile.AlternateColourAngle),
+                Skip = box.Skip ? 1 : 0
             };
         }
         
@@ -350,7 +352,8 @@ namespace Seed.DecalProjector {
                 CosTheta = Mathf.Cos(Mathf.Deg2Rad * line.SDFColourProfile.AlternateColourAngle),
                 SinTheta = Mathf.Sin(Mathf.Deg2Rad * line.SDFColourProfile.AlternateColourAngle),
                 AlignColourWithLine = line.AlignColourWithLine ? 1 : 0,
-                Loop = line.IsLoop ? 1 : 0
+                Loop = line.IsLoop ? 1 : 0,
+                Skip = line.Skip ? 1 : 0
             };
         }
         

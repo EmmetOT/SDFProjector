@@ -8,14 +8,14 @@
 float SDF_Circle(float2 p, CircleData data) {
     // adding a tiny number prevents NaN
     float2 difference = (data.Position - p) + EPSILON;
-    return length(difference) - data.Radius;
+    return lerp(length(difference) - data.Radius, MAX_DIST, data.Skip);
 }
-
-float SDF_Circle(float2 p, float2 circlePos, float radius) {
-    // adding a tiny number prevents NaN
-    float2 difference = (circlePos - p) + EPSILON;
-    return length(difference) - radius;
-}
+//
+// float SDF_Circle(float2 p, float2 circlePos, float radius) {
+//     // adding a tiny number prevents NaN
+//     float2 difference = (circlePos - p) + EPSILON;
+//     return length(difference) - radius;
+// }
 
 float SDF_LineSegment(float2 p, float2 a, float2 b, float width) {
     // https://iquilezles.org/www/articles/distgradfunctions2d/distgradfunctions2d.htm
@@ -45,7 +45,7 @@ float SDF_Line(float2 p, LineData data) {
         minDist = min(minDist, SDF_LineSegment(p, a.Position, b.Position, data.Width));
     }
 
-    return minDist;
+    return lerp(minDist, MAX_DIST, data.Skip);
 }
 
 float SDF_Box(float2 p, BoxData data) {
@@ -55,7 +55,7 @@ float SDF_Box(float2 p, BoxData data) {
     r.xy = (p.x > 0.0)?r.xy : r.zw;
     r.x = (p.y > 0.0)?r.x : r.y;
     float2 q = abs(p) - data.Size + r.x;
-    return min(max(q.x, q.y), 0.0) + length(max(q, 0.0)) - r.x;
+    return lerp(min(max(q.x, q.y), 0.0) + length(max(q, 0.0)) - r.x, MAX_DIST, data.Skip);
 }
 
 // smooth min but also smoothly combines associated float4s (e.g. colours)

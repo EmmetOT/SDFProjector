@@ -7,7 +7,7 @@
 
 void SDFDecals_float(float2 uv, out float4 outputColor) {
     outputColor = _BackgroundColour;
-    float minDist = 1000000.;
+    float minDist = MAX_DIST;
 
     float2 worldSpacePos = uv * (_TopRight - _BottomLeft) + _BottomLeft;
 

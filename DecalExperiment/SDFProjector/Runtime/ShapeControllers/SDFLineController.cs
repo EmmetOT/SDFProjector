@@ -44,6 +44,7 @@ namespace Seed.DecalProjector {
                 sdfLine.IsLoop = isLoop;
                 sdfLine.AlignColourWithLine = alignColourWithLine;
                 sdfLine.SDFColourProfile = SDFColourProfile;
+                sdfLine.Skip = skip;
                 sdfLine.SetPoints(tranformedPoints);
             }
         }
